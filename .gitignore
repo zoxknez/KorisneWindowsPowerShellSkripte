@@ -1,0 +1,8 @@
+# .gitignore
+# Privremeni i log fajlovi
+*.zip
+*.7z
+*.rar
+*.log
+Thumbs.db
+Desktop.ini
