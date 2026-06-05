@@ -35,7 +35,7 @@ try {
     }
     
     $totalGB = [Math]::Round($totalCapacity / 1GB, 1)
-    Write-Host "Ukupno instalirana RAM memorija: $totalGB GB" -ForegroundColor Gold
+    Write-Host "Ukupno instalirana RAM memorija: $totalGB GB" -ForegroundColor Yellow
     Write-Host "Ukupan broj zauzetih slotova: $($memDevices.Count)" -ForegroundColor White
     Write-Host "==================================================" -ForegroundColor Cyan
 } catch {

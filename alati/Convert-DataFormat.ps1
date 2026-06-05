@@ -97,7 +97,7 @@ try {
     }
     
     Write-Host "Konverzija uspešno završena!" -ForegroundColor Green
-    Write-Host "Izlazni fajl: $OutputFile" -ForegroundColor Gold
+    Write-Host "Izlazni fajl: $OutputFile" -ForegroundColor Yellow
 } catch {
     Write-Host "Došlo je do greške tokom konverzije: $($_.Exception.Message)" -ForegroundColor Red
 }

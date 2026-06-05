@@ -44,7 +44,7 @@ try {
     
     if (Test-Path $finalOutFile) {
         Write-Host "`n[+] Registry bekap uspešno završen!" -ForegroundColor Green
-        Write-Host "Fajl je sačuvan na: $finalOutFile" -ForegroundColor Gold
+        Write-Host "Fajl je sačuvan na: $finalOutFile" -ForegroundColor Yellow
     } else {
         Write-Host "Greška: Bekap fajl nije kreiran. Proverite putanju." -ForegroundColor Red
     }

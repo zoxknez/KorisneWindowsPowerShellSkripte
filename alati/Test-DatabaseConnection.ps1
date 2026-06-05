@@ -41,7 +41,7 @@ try {
     
     $stopwatch.Stop()
     Write-Host "`n[+] KONEKCIJA USPEŠNA!" -ForegroundColor Green
-    Write-Host "Vreme uspostavljanja veze: $($stopwatch.ElapsedMilliseconds) ms" -ForegroundColor Gold
+    Write-Host "Vreme uspostavljanja veze: $($stopwatch.ElapsedMilliseconds) ms" -ForegroundColor Yellow
 } catch {
     Write-Host "`n[-] KONEKCIJA NIJE USPELA!" -ForegroundColor Red
     Write-Host "Detalji greške: $($_.Exception.Message)" -ForegroundColor Yellow

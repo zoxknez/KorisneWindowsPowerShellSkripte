@@ -47,7 +47,7 @@ if ($UpdateBaseline -or -not (Test-Path $dbPath)) {
     $json | Set-Content -Path $dbPath -Encoding utf8 -Force
     
     Write-Host "`n[+] Baseline uspešno kreiran i snimljen u: $dbPath" -ForegroundColor Green
-    Write-Host "Ukupno fajlova u bazi: $($baseline.Count)" -ForegroundColor Gold
+    Write-Host "Ukupno fajlova u bazi: $($baseline.Count)" -ForegroundColor Yellow
     return
 }
 

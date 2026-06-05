@@ -55,7 +55,7 @@ try {
     
     [System.IO.File]::WriteAllText($htmlPath, $sb.ToString(), [System.Text.Encoding]::UTF8)
     Write-Host "`n[+] HTML tabela uspešno kreirana!" -ForegroundColor Green
-    Write-Host "Fajl je sačuvan na: $htmlPath" -ForegroundColor Gold
+    Write-Host "Fajl je sačuvan na: $htmlPath" -ForegroundColor Yellow
 } catch {
     Write-Host "Greška pri konverziji CSV u HTML: $($_.Exception.Message)" -ForegroundColor Red
 }

@@ -76,7 +76,7 @@ Write-Host "             AKTIVNI UREĐAJI NA MREŽI             " -ForegroundCol
 Write-Host "==================================================" -ForegroundColor Cyan
 if ($activeHosts.Count -gt 0) {
     $activeHosts | Sort-Object -Property IPAdresa | Format-Table -AutoSize
-    Write-Host "Ukupno aktivnih uređaja: $($activeHosts.Count)" -ForegroundColor Gold
+    Write-Host "Ukupno aktivnih uređaja: $($activeHosts.Count)" -ForegroundColor Yellow
 } else {
     Write-Host "Nije pronađen nijedan aktivan uređaj u mreži." -ForegroundColor Yellow
 }

@@ -48,4 +48,4 @@ if (Test-Path $firefoxProfiles) {
 
 $freedMB = [Math]::Round($freedBytes / 1MB, 2)
 Write-Host "`n[+] Čišćenje keša pretraživača završeno!" -ForegroundColor Green
-Write-Host "Oslobođeno oko $freedMB MB memorije." -ForegroundColor Gold
+Write-Host "Oslobođeno oko $freedMB MB memorije." -ForegroundColor Yellow

@@ -67,7 +67,7 @@ try {
     
     if ($process.ExitCode -lt 8) {
         Write-Host "`n[+] Sinhronizacija uspešno završena!" -ForegroundColor Green
-        Write-Host "Vaši fajlovi su bezbedno prebačeni u Cloud i biće automatski sinhronizovani." -ForegroundColor Gold
+        Write-Host "Vaši fajlovi su bezbedno prebačeni u Cloud i biće automatski sinhronizovani." -ForegroundColor Yellow
     } else {
         Write-Host "Došlo je do delimičnih grešaka tokom Robocopy sinhronizacije (Exit Code: $($process.ExitCode))." -ForegroundColor Yellow
     }

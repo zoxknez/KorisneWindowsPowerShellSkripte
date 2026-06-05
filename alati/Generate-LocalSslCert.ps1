@@ -29,7 +29,7 @@ try {
     $rootStore.Close()
     
     Write-Host "  [+] Sertifikat uspešno uvezen u Trusted Root store!" -ForegroundColor Green
-    Write-Host "`nInstalacija uspešna!" -ForegroundColor Gold
+    Write-Host "`nInstalacija uspešna!" -ForegroundColor Yellow
     Write-Host "Sada možete koristiti HTTPS za lokalne projekte na domenu https://$DomainName" -ForegroundColor White
 } catch {
     Write-Host "Greška pri kreiranju/uvozu sertifikata: $($_.Exception.Message)" -ForegroundColor Red

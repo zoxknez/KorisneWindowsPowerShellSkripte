@@ -34,7 +34,7 @@ try {
     $ProgressPreference = $oldProgress
     
     Write-Host "`n[+] QR kod uspešno generisan i sačuvan!" -ForegroundColor Green
-    Write-Host "Putanja slike: $qrFilePath" -ForegroundColor Gold
+    Write-Host "Putanja slike: $qrFilePath" -ForegroundColor Yellow
     
     # Otvaramo sliku preko podrazumevanog preglednika
     Start-Process $qrFilePath

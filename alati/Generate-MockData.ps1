@@ -54,4 +54,4 @@ if ($Format -eq "json") {
 }
 
 Write-Host "`n[+] Podaci uspešno generisani!" -ForegroundColor Green
-Write-Host "Sačuvano u: $destPath" -ForegroundColor Gold
+Write-Host "Sačuvano u: $destPath" -ForegroundColor Yellow

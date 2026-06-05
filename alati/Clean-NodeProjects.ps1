@@ -86,7 +86,7 @@ if ($confirm.ToUpper() -eq "Y") {
     if ($errorCount -gt 0) {
         Write-Host "Greške pri brisanju: $errorCount foldera (verovatno su zaključani procesima)." -ForegroundColor Red
     }
-    Write-Host "Oslobođeno oko $totalSizeGB GB." -ForegroundColor Gold
+    Write-Host "Oslobođeno oko $totalSizeGB GB." -ForegroundColor Yellow
 } else {
     Write-Host "Operacija otkazana." -ForegroundColor Red
 }

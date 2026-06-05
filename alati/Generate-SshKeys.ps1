@@ -31,7 +31,7 @@ try {
             $pubKey | clip.exe
             
             Write-Host "`n[+] SSH ključ uspešno generisan!" -ForegroundColor Green
-            Write-Host "JAVNI KLJUČ (Kopiran je u Vaš Clipboard):" -ForegroundColor Gold
+            Write-Host "JAVNI KLJUČ (Kopiran je u Vaš Clipboard):" -ForegroundColor Yellow
             Write-Host $pubKey -ForegroundColor Green
         }
     } else {

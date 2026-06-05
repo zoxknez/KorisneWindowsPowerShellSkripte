@@ -63,7 +63,7 @@ try {
     $bmp.Dispose()
     
     Write-Host "`n[+] Slika uspešno konvertovana!" -ForegroundColor Green
-    Write-Host "Crno-bela slika sačuvana na: $outPath" -ForegroundColor Gold
+    Write-Host "Crno-bela slika sačuvana na: $outPath" -ForegroundColor Yellow
 } catch {
     Write-Host "Greška pri konverziji slike: $($_.Exception.Message)" -ForegroundColor Red
 }

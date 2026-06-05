@@ -81,7 +81,7 @@ try {
         $display | Sort-Object -Property LinijaKoda -Descending | Format-Table -AutoSize
         $totalLines = ($display | Measure-Object -Property LinijaKoda -Sum).Sum
         $totalFiles = ($display | Measure-Object -Property Fajlova -Sum).Sum
-        Write-Host "UKUPNO: $totalFiles kodnih fajlova sa $totalLines linija koda." -ForegroundColor Gold
+        Write-Host "UKUPNO: $totalFiles kodnih fajlova sa $totalLines linija koda." -ForegroundColor Yellow
     } else {
         Write-Host "Nisu pronađeni kodni fajlovi podržanih jezika." -ForegroundColor Yellow
     }

@@ -39,7 +39,7 @@ try {
     $word.Quit()
     
     Write-Host "`n[+] Dokumenti uspešno spojeni!" -ForegroundColor Green
-    Write-Host "Izlazni fajl: $finalOut" -ForegroundColor Gold
+    Write-Host "Izlazni fajl: $finalOut" -ForegroundColor Yellow
 } catch {
     if ($word) { $word.Quit() }
     Write-Host "Greška pri spajanju: $($_.Exception.Message)" -ForegroundColor Red

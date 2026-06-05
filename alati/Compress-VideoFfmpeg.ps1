@@ -56,7 +56,7 @@ try {
     if (Test-Path $OutputVideo) {
         $finalSize = (Get-Item $OutputVideo).Length
         Write-Host "`n[+] Video uspešno kompresovan!" -ForegroundColor Green
-        Write-Host "Konačna veličina: $([Math]::Round($finalSize / 1MB, 2)) MB" -ForegroundColor Gold
+        Write-Host "Konačna veličina: $([Math]::Round($finalSize / 1MB, 2)) MB" -ForegroundColor Yellow
     }
 } catch {
     Write-Host "Greška tokom kompresije: $($_.Exception.Message)" -ForegroundColor Red

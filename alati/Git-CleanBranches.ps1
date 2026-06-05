@@ -37,7 +37,7 @@ try {
             $result = git branch -d $branch 2>&1
             Write-Host "  $result" -ForegroundColor Green
         }
-        Write-Host "Čišćenje grana završeno." -ForegroundColor Gold
+        Write-Host "Čišćenje grana završeno." -ForegroundColor Yellow
     } else {
         Write-Host "Operacija otkazana." -ForegroundColor Red
     }
