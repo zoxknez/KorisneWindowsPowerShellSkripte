@@ -1,4 +1,4 @@
-# Get-MarkdownPreview.ps1 - Pretvaranje Markdown fajlova u HTML stranice
+﻿# Get-MarkdownPreview.ps1 - Pretvaranje Markdown fajlova u HTML stranice
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -93,7 +93,7 @@ try {
     
     $htmlContent.ToString() | Set-Content -Path $htmlFile -Encoding utf8 -Force
     Write-Host "`n[+] HTML fajl uspešno generisan!" -ForegroundColor Green
-    Write-Host "Izlazni fajl: $htmlFile" -ForegroundColor Gold
+    Write-Host "Izlazni fajl: $htmlFile" -ForegroundColor Yellow
     
     # Otvaranje u podrazumevanom pretraživaču
     Start-Process $htmlFile

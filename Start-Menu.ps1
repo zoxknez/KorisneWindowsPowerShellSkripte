@@ -1,4 +1,4 @@
-﻿# Start-Menu.ps1 - Glavni interaktivni pokretač za Windows Utility Toolkit (140 alata)
+﻿# Start-Menu.ps1 - Glavni interaktivni pokretač za Windows Utility Toolkit (200+ koristi)
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -12,7 +12,7 @@ function Show-Header {
 }
 
 function Show-MainMenu {
-    Show-Header -Title "WINDOWS UTILITY TOOLKIT (140 Alata)"
+    Show-Header -Title "WINDOWS UTILITY TOOLKIT (200+ Koristi)"
     Write-Host "Autor: o0o0o0o" -ForegroundColor DarkGray
     Write-Host "Izaberite kategoriju alata (unesite broj):`n" -ForegroundColor White
     Write-Host "1.  Sistemsko čišćenje i optimizacija (8 alata)" -ForegroundColor Green
@@ -26,6 +26,7 @@ function Show-MainMenu {
     Write-Host "9.  Rad sa medijima i fajl automatizacija (15 alata)" -ForegroundColor Magenta
     Write-Host "10. Registry, OS i Windows optimizacija (15 alata)" -ForegroundColor Yellow
     Write-Host "11. Baze podataka, Keš i Taskovi (10 alata)" -ForegroundColor Green
+    Write-Host "12. Napredni novi alati (60 koristi)" -ForegroundColor Cyan
     Write-Host "0.  Izlaz" -ForegroundColor Red
     Write-Host "==================================================" -ForegroundColor Cyan
 }
@@ -1044,6 +1045,9 @@ do {
         "9" { Show-SubMenu9 }
         "10" { Show-SubMenu10 }
         "11" { Show-SubMenu11 }
+        "12" {
+            & "$scriptDir\alati\Start-NapredniAlati.ps1"
+        }
         "0" {
             Write-Host "`nDoviđenja! Hvala što ste koristili Windows Utility Toolkit." -ForegroundColor Yellow
             break

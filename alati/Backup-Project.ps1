@@ -68,7 +68,7 @@ try {
         $zipSize = (Get-Item $zipFilePath).Length
         $zipSizeMB = [Math]::Round($zipSize / 1MB, 2)
         Write-Host "Bekap uspešno završen!" -ForegroundColor Green
-        Write-Host "Veličina arhive: $zipSizeMB MB" -ForegroundColor Gold
+        Write-Host "Veličina arhive: $zipSizeMB MB" -ForegroundColor Yellow
     }
 } catch {
     Write-Host "Greška prilikom kompresije arhive: $($_.Exception.Message)" -ForegroundColor Red

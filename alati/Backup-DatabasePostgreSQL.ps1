@@ -33,7 +33,7 @@ try {
     
     if (Test-Path $outFile -and (Get-Item $outFile).Length -gt 0) {
         Write-Host "`n[+] Bekap PostgreSQL baze uspešno završen!" -ForegroundColor Green
-        Write-Host "Arhiva: $outFile" -ForegroundColor Gold
+        Write-Host "Arhiva: $outFile" -ForegroundColor Yellow
     } else {
         Write-Host "Greška pri kreiranju arhive." -ForegroundColor Red
     }

@@ -65,7 +65,7 @@ try {
     $speedMbps = [Math]::Round(($sizeBits / $seconds) / 1MB, 2)
     $speedMBps = [Math]::Round(($data.Length / $seconds) / 1MB, 2)
     
-    Write-Host "`nRezultati testa brzine:" -ForegroundColor Gold
+    Write-Host "`nRezultati testa brzine:" -ForegroundColor Yellow
     Write-Host "  Vreme preuzimanja: $([Math]::Round($seconds, 2)) sekundi" -ForegroundColor White
     Write-Host "  Brzina preuzimanja (Mbps): " -NoNewline -ForegroundColor White
     Write-Host "$speedMbps Mbps" -ForegroundColor Green

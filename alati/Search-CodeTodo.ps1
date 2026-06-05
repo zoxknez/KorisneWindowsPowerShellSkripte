@@ -55,7 +55,7 @@ try {
         } catch {}
     }
     
-    Write-Host "Pretraga završena. Ukupno pronađeno: $foundCount stavki." -ForegroundColor Gold
+    Write-Host "Pretraga završena. Ukupno pronađeno: $foundCount stavki." -ForegroundColor Yellow
 } catch {
     Write-Host "Greška pri pretrazi: $($_.Exception.Message)" -ForegroundColor Red
 }

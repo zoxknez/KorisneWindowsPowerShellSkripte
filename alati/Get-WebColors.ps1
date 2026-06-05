@@ -62,7 +62,7 @@ try {
     
     if ($display.Count -gt 0) {
         $display | Sort-Object -Property BrojPojavljivanja -Descending | Format-Table -AutoSize
-        Write-Host "Ukupno pronađeno jedinstvenih boja: $($display.Count)" -ForegroundColor Gold
+        Write-Host "Ukupno pronađeno jedinstvenih boja: $($display.Count)" -ForegroundColor Yellow
     } else {
         Write-Host "Nisu pronađene boje u formatu #HEX." -ForegroundColor Yellow
     }

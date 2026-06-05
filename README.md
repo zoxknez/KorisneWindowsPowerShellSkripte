@@ -1,8 +1,8 @@
-﻿# Korisne Windows PowerShell Skripte (Kolekcija od 140 alata)
+﻿# Korisne Windows PowerShell Skripte (200+ alata i koristi)
 
 **Autor: o0o0o0o**
 
-Ovaj repozitorijum sadrži sveobuhvatnu kolekciju od **140 univerzalnih i robusnih PowerShell skripti** koje olakšavaju rad programerima, sistemskim administratorima i naprednim korisnicima na Windows platformi. Sve skripte su optimizovane za prikaz srpskih latiničnih diacritika (`č, ć, š, ž, đ`) i sadrže ugrađenu pomoć.
+Ovaj repozitorijum sadrži sveobuhvatnu kolekciju od **140 osnovnih PowerShell fajlova i 60 dodatnih naprednih koristi** koje olakšavaju rad programerima, sistemskim administratorima i naprednim korisnicima na Windows platformi. Sve skripte su optimizovane za prikaz srpskih latiničnih diacritika (`č, ć, š, ž, đ`) i sadrže ugrađenu pomoć.
 
 ## Kako pokrenuti?
 
@@ -27,9 +27,16 @@ PowerShell po podrazumevanim podešavanjima blokira pokretanje skripti radi bezb
    .\Start-Menu.ps1
    ```
 
+### Direktno pokretanje naprednog paketa
+
+```powershell
+.\alati\Start-NapredniAlati.ps1 -List
+.\alati\Start-NapredniAlati.ps1 -ToolId 31
+```
+
 ---
 
-## Pregled Skripti po Kategorijama (1-140)
+## Pregled Skripti po Kategorijama (1-140) + Napredni paket (141-200)
 
 ### 1. Sistemsko čišćenje i optimizacija (1-8)
 *   **`Clean-NodeProjects.ps1`** - Rekurzivno čišćenje `node_modules`, `dist`, `.next` i build keševa.
@@ -191,3 +198,67 @@ PowerShell po podrazumevanim podešavanjima blokira pokretanje skripti radi bezb
 *   **`Check-CronFormat.ps1`** - Kalkulacija sledećih vremena pokretanja Cron izraza.
 *   **`Query-MssqlDatabase.ps1`** - Izvršavanje SQL upita nad lokalnim Microsoft SQL Serverom.
 *   **`Sync-DirectoriesInterval.ps1`** - Periodična sinhronizacija dva foldera u realnom vremenu.
+
+
+### 12. Napredni novi alati (141-200)
+*   **Start-NapredniAlati.ps1** - Interaktivni paket sa 60 novih pod-alata za security, Windows ops, dev/supply-chain, mrežu i backup.
+*   **141. `Audit-PowerShellLogging`** (Security) - Proverava Script Block, Module i Transcription logging.
+*   **142. `Enable-PowerShellLoggingSafe`** (Security) - Uključuje PowerShell logging uz ShouldProcess podršku.
+*   **143. `Audit-DefenderExclusions`** (Security) - Prikazuje Microsoft Defender exclusion-e.
+*   **144. `Test-DefenderASRRules`** (Security) - Prikazuje Attack Surface Reduction pravila i akcije.
+*   **145. `Scan-AntivirusQuickSummary`** (Security) - Sažima status Defender/AV zaštite.
+*   **146. `Audit-LocalAdminsDrift`** (Security) - Prikazuje članove lokalne Administrators grupe.
+*   **147. `Audit-RDPExposure`** (Security) - Proverava RDP, NLA i firewall pravila.
+*   **148. `Audit-SmbSigningGuest`** (Security) - Proverava SMB signing, SMB1 i guest podešavanja.
+*   **149. `Audit-WinRMExposure`** (Security) - Prikazuje WinRM listenere i trusted hosts.
+*   **150. `Check-FirewallProfileHardening`** (Security) - Sažima Windows Firewall profile.
+*   **151. `Audit-UACSettings`** (Security) - Prikazuje ključna UAC registry podešavanja.
+*   **152. `Audit-PowerShellProfiles`** (Security) - Pronalazi PowerShell profile i hešira postojeće.
+*   **153. `Find-SuspiciousPowerShellHistory`** (Security) - Traži rizične obrasce u PSReadLine istoriji.
+*   **154. `Detect-PathHijacking`** (Security) - Traži duple komande i sumnjive PATH foldere.
+*   **155. `Find-AlternateDataStreams`** (Security) - Traži NTFS Alternate Data Streams.
+*   **156. `Audit-CertificateStores`** (Security) - Prikazuje certifikate koji ističu uskoro ili su self-signed.
+*   **157. `Monitor-NewServicesDrivers`** (Security) - Prikazuje servise i drajvere sortirane po stanju i start modu.
+*   **158. `Audit-HiddenScheduledTasks`** (Security) - Nalazi skrivene Scheduled Task stavke.
+*   **159. `Export-SecurityTriageBundle`** (Security) - Izvozi osnovni security triage bundle u ZIP.
+*   **160. `Check-BitLockerRecoveryBackup`** (Security) - Prikazuje BitLocker status i key protectore.
+*   **161. `Check-WingetOutdated`** (Windows Ops) - Prikazuje dostupne WinGet nadogradnje.
+*   **162. `Export-WingetPackageList`** (Windows Ops) - Exportuje instalirane WinGet pakete u JSON.
+*   **163. `Check-TimeSyncHealth`** (Windows Ops) - Prikazuje Windows time sync status.
+*   **164. `Analyze-BootPerformance`** (Windows Ops) - Čita Diagnostics-Performance boot/shutdown događaje.
+*   **165. `Repair-WindowsComponentStorePlan`** (Windows Ops) - Daje bezbedan redosled DISM/SFC komandi.
+*   **166. `Test-LongPathReadiness`** (Windows Ops) - Proverava long path policy i nalazi duge putanje.
+*   **167. `Create-WindowsSandboxProfile`** (Windows Ops) - Generiše .wsb profil za Windows Sandbox.
+*   **168. `Check-WprReadiness`** (Windows Ops) - Proverava Windows Performance Recorder dostupnost.
+*   **169. `Manage-PowerToysBackup`** (Windows Ops) - Pronalazi PowerToys settings folder za ručni backup.
+*   **170. `Check-HotkeyConflicts`** (Windows Ops) - Traži PowerToys Keyboard Manager konfiguracije.
+*   **171. `Audit-RepoSecrets`** (Dev/Supply Chain) - Lokalni scan tokena, ključeva i .env curenja.
+*   **172. `Audit-DependencyLockfiles`** (Dev/Supply Chain) - Popisuje lockfile-ove u projektu.
+*   **173. `Check-OpenSourceLicenses`** (Dev/Supply Chain) - Traži licence u package.json fajlovima.
+*   **174. `Audit-DockerComposeSecurity`** (Dev/Supply Chain) - Traži rizične docker-compose obrasce.
+*   **175. `Validate-EnvFiles`** (Dev/Supply Chain) - Poredi .env.example i .env ključeve bez prikaza vrednosti.
+*   **176. `Validate-GitIgnoreCoverage`** (Dev/Supply Chain) - Traži uobičajene build/cache/secret fajlove koji nisu ignorisani.
+*   **177. `Audit-GitLargeObjects`** (Dev/Supply Chain) - Nalazi velike fajlove u radnom stablu.
+*   **178. `Check-GitHooksIntegrity`** (Dev/Supply Chain) - Prikazuje lokalne Git hook-ove i heševe.
+*   **179. `Audit-NpmScripts`** (Dev/Supply Chain) - Analizira package.json scripts za rizične obrasce.
+*   **180. `Test-LocalPortsExpected`** (Dev/Supply Chain) - Prikazuje listening portove i procese.
+*   **181. `Validate-OpenApiSpec`** (Dev/Supply Chain) - Osnovna validacija OpenAPI JSON/YAML fajla.
+*   **182. `Generate-RepoHealthReport`** (Dev/Supply Chain) - Pravi sažet repo health izveštaj.
+*   **183. `Check-DomainEmailSecurity`** (Network/Web) - Proverava SPF, DMARC i MTA-STS DNS zapise.
+*   **184. `Check-SecurityHeaders`** (Network/Web) - Proverava ključne web security header-e.
+*   **185. `Check-CertificateTransparency`** (Network/Web) - Pretražuje crt.sh za certifikate domena.
+*   **186. `Monitor-DomainDnsBaseline`** (Network/Web) - Prikazuje A/AAAA/MX/NS/TXT DNS baseline.
+*   **187. `Test-IPv6Readiness`** (Network/Web) - Proverava lokalni IPv6, rutu i DNS.
+*   **188. `Trace-PathQuality`** (Network/Web) - Pokreće tracert i ping za cilj.
+*   **189. `Benchmark-VpnSplitTunnel`** (Network/Web) - Upoređuje javnu IP i default rutu.
+*   **190. `Scan-MdnsSsdpDevices`** (Network/Web) - Lagano proverava mDNS/SSDP indikatore.
+*   **191. `Analyze-NtfsPermissionsDrift`** (Files/Backup) - Sažima ACL za folder.
+*   **192. `Export-ExifAndZoneMetadata`** (Files/Backup) - Izvozi osnovne metadata indikatore i Zone.Identifier.
+*   **193. `Detect-ArchiveBombRisk`** (Files/Backup) - Procena ZIP compression ratio rizika.
+*   **194. `Verify-BackupRestore`** (Files/Backup) - Poredi dva foldera preko SHA256 manifest-a.
+*   **195. `Snapshot-FolderManifest`** (Files/Backup) - Kreira SHA256 manifest foldera.
+*   **196. `Detect-CaseOnlyFilenameConflicts`** (Files/Backup) - Nalazi case-only konflikte korisne za Git/WSL.
+*   **197. `Normalize-FilenamesUnicodePreview`** (Files/Backup) - Prikazuje fajlove čija Unicode normalizacija menja naziv.
+*   **198. `Detect-OneDriveSyncConflicts`** (Files/Backup) - Traži OneDrive conflicted copies i sync indikatore.
+*   **199. `Monitor-RansomwareCanary`** (Files/Backup) - Kreira ili proverava canary fajlove.
+*   **200. `Analyze-LargeLogAnomalies`** (Files/Backup) - Top greške i frekvencije u velikom log fajlu.

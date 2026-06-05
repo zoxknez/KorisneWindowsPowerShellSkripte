@@ -29,7 +29,7 @@ try {
     
     if (Test-Path $outDir) {
         Write-Host "`n[+] Bekap MongoDB baze uspešno završen!" -ForegroundColor Green
-        Write-Host "Podaci sačuvani u folderu: $outDir" -ForegroundColor Gold
+        Write-Host "Podaci sačuvani u folderu: $outDir" -ForegroundColor Yellow
     } else {
         Write-Host "Greška pri eksportu baze." -ForegroundColor Red
     }

@@ -42,7 +42,7 @@ $confirm = Read-Host "Da li ste sigurni da želite da obrišete sve prazne folde
 if ($confirm.ToUpper() -eq "Y") {
     $totalDeleted = Remove-EmptyDirectories -targetDir $Path
     Write-Host "`nČišćenje praznih foldera završeno!" -ForegroundColor Green
-    Write-Host "Ukupno obrisano praznih foldera: $totalDeleted" -ForegroundColor Gold
+    Write-Host "Ukupno obrisano praznih foldera: $totalDeleted" -ForegroundColor Yellow
 } else {
     Write-Host "Operacija otkazana." -ForegroundColor Red
 }

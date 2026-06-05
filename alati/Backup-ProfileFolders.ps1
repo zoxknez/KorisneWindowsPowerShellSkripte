@@ -47,7 +47,7 @@ try {
     
     $sizeMB = [Math]::Round((Get-Item $zipPath).Length / 1MB, 2)
     Write-Host "`n[+] Bekap uspešno završen!" -ForegroundColor Green
-    Write-Host "Sačuvano u: $zipPath (Veličina: $sizeMB MB)" -ForegroundColor Gold
+    Write-Host "Sačuvano u: $zipPath (Veličina: $sizeMB MB)" -ForegroundColor Yellow
 } catch {
     Write-Host "Greška tokom bekapa profila: $($_.Exception.Message)" -ForegroundColor Red
 } finally {

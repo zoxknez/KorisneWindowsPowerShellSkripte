@@ -55,4 +55,4 @@ Write-Host "`n==================================================" -ForegroundCol
 Write-Host "             REZULTATI DNS BENCHMARK-A            " -ForegroundColor Yellow
 Write-Host "==================================================" -ForegroundColor Cyan
 $results | Sort-Object -Property OdzivMs | Format-Table -AutoSize
-Write-Host "Najbrži DNS je na vrhu tabele." -ForegroundColor Gold
+Write-Host "Najbrži DNS je na vrhu tabele." -ForegroundColor Yellow

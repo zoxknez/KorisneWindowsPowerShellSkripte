@@ -34,7 +34,7 @@ try {
     
     Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
     
-    Write-Host "Optimizacija završena!" -ForegroundColor Gold
+    Write-Host "Optimizacija završena!" -ForegroundColor Yellow
 } catch {
     Write-Host "Greška tokom primene optimizacija: $($_.Exception.Message)" -ForegroundColor Red
 }

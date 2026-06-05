@@ -18,7 +18,7 @@ try {
     
     if (Test-Path $reportPath) {
         Write-Host "`n[+] Energetski izveštaj uspešno kreiran!" -ForegroundColor Green
-        Write-Host "Izveštaj je snimljen kao: $reportPath" -ForegroundColor Gold
+        Write-Host "Izveštaj je snimljen kao: $reportPath" -ForegroundColor Yellow
         
         # Otvaranje fajla
         Start-Process $reportPath

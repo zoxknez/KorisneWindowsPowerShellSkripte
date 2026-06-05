@@ -63,5 +63,5 @@ foreach ($job in $jobs) {
 
 $jobs | Remove-Job -Force
 
-Write-Host "`nSkeniranje subneta završeno!" -ForegroundColor Gold
+Write-Host "`nSkeniranje subneta završeno!" -ForegroundColor Yellow
 Write-Host "Ukupno pronađeno servera: $($activeServers.Count)" -ForegroundColor White

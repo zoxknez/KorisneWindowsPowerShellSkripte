@@ -66,4 +66,4 @@ try {
 
 $totalFreedMB = [Math]::Round($totalFreed / 1MB, 2)
 Write-Host "`nČišćenje sistema je završeno!" -ForegroundColor Green
-Write-Host "Oslobođeno oko $totalFreedMB MB prostora u privremenim folderima." -ForegroundColor Gold
+Write-Host "Oslobođeno oko $totalFreedMB MB prostora u privremenim folderima." -ForegroundColor Yellow

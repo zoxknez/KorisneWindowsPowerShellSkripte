@@ -1,4 +1,4 @@
-# Split-LargeFile.ps1 - Deljenje velikih fajlova na manje delove
+﻿# Split-LargeFile.ps1 - Deljenje velikih fajlova na manje delove
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -56,7 +56,7 @@ try {
     $fileStream.Dispose()
     
     Write-Host "`n[+] Fajl je uspešno podeljen na $($fileIndex - 1) delova!" -ForegroundColor Green
-    Write-Host "Ukupno procesirano linija: $lineCount" -ForegroundColor Gold
+    Write-Host "Ukupno procesirano linija: $lineCount" -ForegroundColor Yellow
 } catch {
     Write-Host "Greška pri deljenju fajla: $($_.Exception.Message)" -ForegroundColor Red
 }

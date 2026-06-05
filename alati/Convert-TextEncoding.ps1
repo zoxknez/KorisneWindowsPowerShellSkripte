@@ -44,4 +44,4 @@ foreach ($file in $files) {
 }
 
 Write-Host "`nKonverzija enkodiranja završena!" -ForegroundColor Green
-Write-Host "Uspešno konvertovano: $success | Greške: $errors" -ForegroundColor Gold
+Write-Host "Uspešno konvertovano: $success | Greške: $errors" -ForegroundColor Yellow

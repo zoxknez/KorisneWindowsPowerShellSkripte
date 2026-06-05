@@ -59,7 +59,7 @@ try {
     Write-Host "Broadcast adresa   : $($broadcastAddress.IPAddressToString)" -ForegroundColor White
     Write-Host "Prva IP adresa     : $($firstHost.IPAddressToString)" -ForegroundColor White
     Write-Host "Poslednja IP adresa: $($lastHost.IPAddressToString)" -ForegroundColor White
-    Write-Host "Ukupno upotrebljivo: $totalHosts hostova" -ForegroundColor Gold
+    Write-Host "Ukupno upotrebljivo: $totalHosts hostova" -ForegroundColor Yellow
     Write-Host "==================================================" -ForegroundColor Cyan
 } catch {
     Write-Host "Greška: Neispravna IP adresa ili Subnet maska!" -ForegroundColor Red

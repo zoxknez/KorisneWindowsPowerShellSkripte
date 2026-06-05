@@ -62,7 +62,7 @@ try {
         }
     }
     
-    Write-Host "`nUkupno pronađeno poklapanja: $($matchesFound.Count) u $($grouped.Count) fajlova." -ForegroundColor Gold
+    Write-Host "`nUkupno pronađeno poklapanja: $($matchesFound.Count) u $($grouped.Count) fajlova." -ForegroundColor Yellow
 } catch {
     Write-Host "Došlo je do greške pri pretrazi: $($_.Exception.Message)" -ForegroundColor Red
 }
