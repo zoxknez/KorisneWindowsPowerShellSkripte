@@ -26,6 +26,7 @@ Describe 'Unit Tests - Get-KwtLocalUserAudit' {
             if ($admins.Count -gt 0) {
                 foreach ($admin in $admins) {
                     $admin.IsAdmin | Should Be $true
+                    $admin.IsLocalAdmin | Should Be $true
                     ($admin.PSObject.Properties.Name -contains 'UserName') | Should Be $true
                 }
             }

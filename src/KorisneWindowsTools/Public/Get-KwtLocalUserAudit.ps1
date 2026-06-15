@@ -56,6 +56,7 @@
                         Type        = $m.ObjectClass
                         Principal   = $m.PrincipalSource
                         IsAdmin     = $true
+                        IsLocalAdmin = $true
                         AuditTime   = (Get-Date)
                     })
                 }
@@ -67,6 +68,10 @@
             try {
                 $users = Get-LocalUser -ErrorAction Stop
                 $adminMembers = Get-LocalGroupMember -Group $adminGroupName -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
+                $normalizedAdminMembers = foreach ($memberName in $adminMembers) {
+                    $memberName
+                    ($memberName -split '\\')[-1]
+                }
 
                 foreach ($u in $users) {
                     # Filtriranje onemogućenih ako prekidač nije uključen
@@ -74,7 +79,7 @@
                         continue
                     }
 
-                    $isAdmin = $adminMembers -contains $u.Name
+                    $isAdmin = $normalizedAdminMembers -contains $u.Name
 
                     $result.Add([PSCustomObject]@{
                         UserName      = $u.Name

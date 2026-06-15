@@ -16,6 +16,12 @@
     .PARAMETER SafeMode
     Pokreće meni u sigurnom režimu gde su prikazani samo alati sa niskim nivoom rizika (Low).
 
+    .PARAMETER List
+    Prikazuje katalog alata bez ulaska u interaktivni prompt.
+
+    .PARAMETER Json
+    Prikazuje katalog alata kao JSON bez ulaska u interaktivni prompt.
+
     .EXAMPLE
     Start-KwtMenu
 
@@ -26,7 +32,9 @@
     param(
         [string]$Search,
         [string]$Category,
-        [switch]$SafeMode
+        [switch]$SafeMode,
+        [switch]$List,
+        [switch]$Json
     )
 
     begin {
@@ -46,6 +54,86 @@
         # Provera admin statusa
         $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
+        function Get-KwtPowerShellHost {
+            $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+            if ($pwsh) {
+                return $pwsh.Source
+            }
+
+            return (Get-Command powershell.exe -ErrorAction Stop).Source
+        }
+
+        function Get-KwtToolArguments {
+            param($tool)
+
+            if ($tool.PSObject.Properties.Name -contains "arguments" -and $null -ne $tool.arguments) {
+                return @($tool.arguments)
+            }
+
+            return @()
+        }
+
+        function Resolve-KwtLegacyTool {
+            param($tool)
+
+            $legacyPath = [string]$tool.legacyPath
+            $arguments = Get-KwtToolArguments -tool $tool
+
+            # Backward compatibility for older catalog entries that stored
+            # simple script arguments inside legacyPath.
+            if ($arguments.Count -eq 0 -and $legacyPath -match '^(.+?\.ps1)\s+(.+)$') {
+                $legacyPath = $matches[1]
+                $arguments = $matches[2] -split '\s+'
+            }
+
+            [PSCustomObject]@{
+                ScriptPath = Join-Path $projectRoot $legacyPath
+                Arguments  = @($arguments)
+            }
+        }
+
+        function Get-KwtToolList {
+            $filtered = $tools
+
+            if ($Search) {
+                $filtered = $filtered | Where-Object { $_.name -like "*$Search*" -or $_.descriptionSr -like "*$Search*" }
+            }
+
+            if ($Category) {
+                $filtered = $filtered | Where-Object { $_.category -eq $Category }
+            }
+
+            if ($SafeMode) {
+                $filtered = $filtered | Where-Object { $_.riskLevel -eq "Low" }
+            }
+
+            $filtered | Select-Object id, category, name, riskLevel, requiresAdmin, @{
+                Name = "target"
+                Expression = {
+                    if ($_.cmdlet) {
+                        $_.cmdlet
+                    } else {
+                        $resolved = Resolve-KwtLegacyTool -tool $_
+                        if ($resolved.Arguments.Count -gt 0) {
+                            "{0} {1}" -f $_.legacyPath, ($resolved.Arguments -join " ")
+                        } else {
+                            $_.legacyPath
+                        }
+                    }
+                }
+            }
+        }
+
+        function Get-KwtOrderedCategories {
+            $seen = @{}
+            foreach ($tool in $tools) {
+                if (-not $seen.ContainsKey($tool.category)) {
+                    $seen[$tool.category] = $true
+                    $tool.category
+                }
+            }
+        }
+
         # Helper za prikaz zaglavlja
         function Show-KwtHeader {
             param([string]$Title)
@@ -64,12 +152,15 @@
                 if ($confirm.ToUpper() -eq "Y") {
                     try {
                         # Ponovo pokrećemo skriptu/cmdlet u novom admin procesu
+                        $psHost = Get-KwtPowerShellHost
                         if ($tool.cmdlet) {
-                            $arg = "-NoProfile -ExecutionPolicy Bypass -Command `"Import-Module KorisneWindowsTools; $($tool.cmdlet) -Verbose`""
-                            Start-Process pwsh -ArgumentList $arg -Verb RunAs
+                            $modulePath = $manifestPath.Replace("'", "''")
+                            $command = "Import-Module -Name '$modulePath' -Force; & '$($tool.cmdlet)' -Verbose"
+                            Start-Process -FilePath $psHost -ArgumentList @("-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", $command) -Verb RunAs
                         } else {
-                            $scriptPath = Join-Path $projectRoot $tool.legacyPath
-                            Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`"" -Verb RunAs
+                            $resolved = Resolve-KwtLegacyTool -tool $tool
+                            $argList = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $resolved.ScriptPath) + @($resolved.Arguments)
+                            Start-Process -FilePath $psHost -ArgumentList $argList -Verb RunAs
                         }
                         Write-Host "Pokrenut administrator proces." -ForegroundColor Green
                     } catch {
@@ -110,11 +201,11 @@
                     & $tool.cmdlet
                 } else {
                     Write-Host "Pokrećem legacy skriptu: $($tool.legacyPath)...`n" -ForegroundColor Cyan
-                    $scriptPath = Join-Path $projectRoot $tool.legacyPath
-                    if (Test-Path $scriptPath) {
-                        & $scriptPath
+                    $resolved = Resolve-KwtLegacyTool -tool $tool
+                    if (Test-Path -LiteralPath $resolved.ScriptPath) {
+                        & $resolved.ScriptPath @($resolved.Arguments)
                     } else {
-                        Write-Host "Greška: Fajl skripte ne postoji na putanji $scriptPath" -ForegroundColor Red
+                        Write-Host "Greška: Fajl skripte ne postoji na putanji $($resolved.ScriptPath)" -ForegroundColor Red
                     }
                 }
             } catch {
@@ -126,6 +217,16 @@
     }
 
     process {
+        if ($List -or $Json) {
+            $listOutput = @(Get-KwtToolList)
+            if ($Json) {
+                $listOutput | ConvertTo-Json -Depth 4
+            } else {
+                $listOutput | Format-Table -AutoSize
+            }
+            return
+        }
+
         # Ako je prosleđen parametar za pretragu
         if ($Search) {
             $filtered = $tools | Where-Object { $_.name -like "*$Search*" -or $_.descriptionSr -like "*$Search*" }
@@ -169,7 +270,7 @@
         }
 
         # Glavna interaktivna petlja za ceo meni
-        $categories = $tools | Select-Object -ExpandProperty category -Unique | Sort-Object
+        $categories = @(Get-KwtOrderedCategories)
 
         do {
             Show-KwtHeader -Title "WINDOWS UTILITY TOOLKIT (DINAMIČKI)"
@@ -212,7 +313,11 @@
                     Show-KwtHeader -Title $selectedCat.ToUpper()
                     for ($j = 0; $j -lt $catTools.Count; $j++) {
                         $t = $catTools[$j]
-                        $marker = if ($t.cmdlet) { "[Cmdlet]" } else { "" }
+                        $markers = @()
+                        if ($t.cmdlet) { $markers += "[Cmdlet]" } else { $markers += "[Script]" }
+                        if ($t.requiresAdmin) { $markers += "[Admin]" }
+                        if ($t.riskLevel -ne "Low") { $markers += "[$($t.riskLevel)]" }
+                        $marker = $markers -join " "
                         $color = if ($t.riskLevel -eq "High") { "Red" } elseif ($t.riskLevel -eq "Medium") { "Yellow" } else { "White" }
                         Write-Host ("{0,2}. {1,-45} {2}" -f ($j + 1), $t.name, $marker) -ForegroundColor $color
                     }

@@ -9,7 +9,12 @@ param(
     [string]$Category,
 
     [Parameter(Mandatory = $false)]
-    [switch]$SafeMode
+    [switch]$SafeMode,
+    [Parameter(Mandatory = $false)]
+    [switch]$List,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$Json
 )
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -33,6 +38,6 @@ if (Test-Path $manifestPath) {
 }
 
 # Pokretanje dinamičkog menija sa parametrima
-Start-KwtMenu -Search $Search -Category $Category -SafeMode:$SafeMode
+Start-KwtMenu -Search $Search -Category $Category -SafeMode:$SafeMode -List:$List -Json:$Json
 
 

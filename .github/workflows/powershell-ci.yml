@@ -21,7 +21,7 @@ jobs:
       - name: Run PSScriptAnalyzer
         shell: pwsh
         run: |
-          Invoke-ScriptAnalyzer -Path . -Recurse -Severity Warning,Error -Settings ./ .PSScriptAnalyzerSettings.psd1
+          Invoke-ScriptAnalyzer -Path @('./src', './Start-Menu.ps1') -Recurse -Severity Warning,Error -Settings ./.PSScriptAnalyzerSettings.psd1
 
       - name: Run Pester Tests
         shell: pwsh

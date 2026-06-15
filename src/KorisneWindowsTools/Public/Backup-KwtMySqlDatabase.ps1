@@ -5,7 +5,7 @@
 
     .DESCRIPTION
     Kreira SQL arhivu (.sql) izabrane baze podataka koristeći 'mysqldump' uslužni program.
-    Podržava sigurne lozinke putem SecureString parametra, proverava izlazni kod procesa ($LASTEXITCODE)
+    Podržava sigurne lozinke putem SecureString parametra, proverava izlazni kod procesa
     i vraća strukturisane metapodatke o bekapu (putanja, veličina, SHA-256 heš).
 
     .PARAMETER DatabaseName
@@ -30,7 +30,7 @@
     $secPass = Read-Host -AsSecureString
     Backup-KwtMySqlDatabase -DatabaseName "mojabaza" -Password $secPass
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
     [OutputType([PSCustomObject])]
     param(
         [Parameter(Mandatory = $true)]
@@ -51,9 +51,14 @@
 
     begin {
         $started = Get-Date
+        $success = $false
+        $exitCode = $null
+        $skipped = $false
+        $tempDefaultsFile = $null
 
         # Provera da li je mysqldump dostupan u PATH-u
-        if (-not (Get-Command mysqldump -ErrorAction SilentlyContinue)) {
+        $mysqldump = Get-Command mysqldump -ErrorAction SilentlyContinue
+        if (-not $mysqldump) {
             Write-Error "Alat 'mysqldump' nije pronađen u sistemskom PATH-u. Instalirajte MySQL/MariaDB klijent."
             return
         }
@@ -76,25 +81,42 @@
         Write-Verbose "Započinjem bekap baze: $DatabaseName na hostu: $Host..."
         
         try {
-            # Konverzija SecureString u plain text za prosleđivanje mysqldump komandi
-            $passArg = ""
+            $argList = @()
             if ($null -ne $Password) {
                 $plainPassword = [System.Net.NetworkCredential]::new("", $Password).Password
-                $passArg = "-p$plainPassword"
+                $tempDefaultsFile = Join-Path ([System.IO.Path]::GetTempPath()) ("kwt-mysql-{0}.cnf" -f ([guid]::NewGuid().ToString("N")))
+                $defaultsContent = @(
+                    "[client]"
+                    "host=$Host"
+                    "user=$Username"
+                    "password=$plainPassword"
+                )
+                Set-Content -Path $tempDefaultsFile -Value $defaultsContent -Encoding ASCII -Force
+                $argList += "--defaults-extra-file=$tempDefaultsFile"
+            } else {
+                $argList += @("-h", $Host, "-u", $Username)
             }
 
-            # Izvršavanje mysqldump
-            # Koristimo cmd.exe za redirekciju izlaza kako bismo izbegli PowerShell kodni encoding problem
-            $cmdArgs = "/c mysqldump -h $Host -u $Username $passArg --databases $DatabaseName > `"$outFile`""
-            
-            Start-Process -FilePath "cmd.exe" -ArgumentList $cmdArgs -Wait -NoNewWindow
-            
-            $exitCode = $LASTEXITCODE
-            $success = ($exitCode -eq 0 -and (Test-Path $outFile) -and (Get-Item $outFile).Length -gt 0)
+            $argList += @("--databases", $DatabaseName)
+
+            if ($PSCmdlet.ShouldProcess($DatabaseName, "Bekap MySQL/MariaDB baze u '$outFile'")) {
+                $process = Start-Process -FilePath $mysqldump.Source -ArgumentList $argList -RedirectStandardOutput $outFile -Wait -NoNewWindow -PassThru
+                $exitCode = $process.ExitCode
+                $success = ($exitCode -eq 0 -and (Test-Path $outFile) -and (Get-Item $outFile).Length -gt 0)
+            } else {
+                $skipped = $true
+            }
         } catch {
             Write-Error "Greška pri izvršavanju bekapa: $($_.Exception.Message)"
             $success = $false
             $exitCode = -1
+        } finally {
+            if ($plainPassword) {
+                $plainPassword = $null
+            }
+            if ($tempDefaultsFile -and (Test-Path -LiteralPath $tempDefaultsFile)) {
+                Remove-Item -LiteralPath $tempDefaultsFile -Force -ErrorAction SilentlyContinue
+            }
         }
     }
 
@@ -107,7 +129,7 @@
             $fileSize = (Get-Item $outFile).Length
             $sha256 = (Get-FileHash -Path $outFile -Algorithm SHA256).Hash
             Write-Verbose "Bekap MySQL baze je uspešno završen: $outFile"
-        } else {
+        } elseif (-not $skipped) {
             Write-Error "Bekap MySQL baze nije uspeo. Izlazni kod: $exitCode"
         }
 
@@ -120,6 +142,7 @@
             StartedAt       = $started
             FinishedAt      = $finished
             ExitCode        = $exitCode
+            Skipped         = $skipped
             Success         = $success
         }
     }
