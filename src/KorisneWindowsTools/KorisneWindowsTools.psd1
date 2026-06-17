@@ -1,7 +1,7 @@
-﻿# Manifest za modul KorisneWindowsTools
+# Manifest za modul KorisneWindowsTools
 @{
     # Verzija modula
-    ModuleVersion = '0.1.0'
+    ModuleVersion = '0.2.0'
 
     # Identifikacioni GUID modula
     GUID = '4c2a5d7e-7a76-4d2d-82d2-43f65fe9d8d1'

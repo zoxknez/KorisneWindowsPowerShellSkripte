@@ -1,4 +1,4 @@
-﻿function Start-KwtMenu {
+function Start-KwtMenu {
     <#
     .SYNOPSIS
     Glavni interaktivni pokretač za Windows Utility Toolkit.
@@ -274,7 +274,7 @@
 
         do {
             Show-KwtHeader -Title "WINDOWS UTILITY TOOLKIT (DINAMIČKI)"
-            Write-Host "Autor: o0o0o0o | Modul: KorisneWindowsTools v0.1.0" -ForegroundColor DarkGray
+            Write-Host "Autor: o0o0o0o | Modul: KorisneWindowsTools v0.2.0" -ForegroundColor DarkGray
             if ($isAdmin) {
                 Write-Host "Privilegije: Administrator" -ForegroundColor Red
             } else {
